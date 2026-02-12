@@ -20,13 +20,13 @@ public class BurgerGetReceiptParameterizedTest {
     private Bun bunMock;
     private Burger burger;
 
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public String bunName;
 
-    @Parameterized.Parameter(1)
+    @Parameterized.Parameter()
     public String ingredientName;
 
-    @Parameterized.Parameter(2)
+    @Parameterized.Parameter()
     public IngredientType ingredientType;
 
     @Parameterized.Parameters(name = "BunName: {0}," +

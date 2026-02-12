@@ -21,13 +21,13 @@ public class BurgerGetPriceParameterizedTest {
     private Bun bunMock;
     private Burger burger;
 
-    @Parameterized.Parameter(0)
+    @Parameterized.Parameter()
     public float bunPrice;
 
-    @Parameterized.Parameter(1)
+    @Parameterized.Parameter()
     public float ingrPrice;
 
-    @Parameterized.Parameter(2)
+    @Parameterized.Parameter()
     public float expectedPrice;
 
     @Parameterized.Parameters(name = "BunPrice: {0}," +
