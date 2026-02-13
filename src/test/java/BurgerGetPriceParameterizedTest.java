@@ -21,24 +21,25 @@ public class BurgerGetPriceParameterizedTest {
     private Bun bunMock;
     private Burger burger;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(0)
     public float bunPrice;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(1)
     public float ingrPrice;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(2)
     public float expectedPrice;
 
     @Parameterized.Parameters(name = "BunPrice: {0}," +
             " IngredientPrice: {1}," +
             " ExpectedPrice: {2}")
     public static Object[][] values() {
-        return new Object[][] {
+        return new Object[][]{
                 {100f, 10f, 210f},
                 {150f, 30f, 330f},
                 {55.55f, 12.5f, 123.6f}
-        }; }
+        };
+    }
 
     @Before
     public void setUp() {
@@ -47,7 +48,7 @@ public class BurgerGetPriceParameterizedTest {
     }
 
     @Test
-    public void getPriceTest() {
+    public void getPriceAssertTest() {
 
         Mockito.when(ingredientMock.getPrice()).thenReturn(ingrPrice);
         Mockito.when(bunMock.getPrice()).thenReturn(bunPrice);
@@ -58,32 +59,19 @@ public class BurgerGetPriceParameterizedTest {
         float price = burger.getPrice();
 
         Assert.assertEquals(expectedPrice, price, 0.0001);
+    }
+
+    @Test
+    public void getPriceVerifyTest() {
+
+        Mockito.when(ingredientMock.getPrice()).thenReturn(ingrPrice);
+        Mockito.when(bunMock.getPrice()).thenReturn(bunPrice);
+
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
+        burger.getPrice();
+
         Mockito.verify(bunMock).getPrice();
         Mockito.verify(ingredientMock).getPrice();
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -20,25 +20,25 @@ public class BurgerGetReceiptParameterizedTest {
     private Bun bunMock;
     private Burger burger;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(0)
     public String bunName;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(1)
     public String ingredientName;
 
-    @Parameterized.Parameter()
+    @Parameterized.Parameter(2)
     public IngredientType ingredientType;
 
-    @Parameterized.Parameters(name = "BunName: {0}," +
-            " IngredientName: {1}," +
-            " IngredientType: {2}")
+    @Parameterized.Parameters(
+            name = "BunName: {0}," + " IngredientName: {1}," + " IngredientType: {2}")
     public static Object[][] values() {
-        return new Object[][] {
-                {"black bun", "hot sauce", IngredientType.SAUCE },
+        return new Object[][]{
+                {"black bun", "hot sauce", IngredientType.SAUCE},
                 {"white bun", "chili sauce", IngredientType.SAUCE},
                 {"red bun", "cutlet", IngredientType.FILLING},
                 {"black bun", "sausage", IngredientType.FILLING}
-        }; }
+        };
+    }
 
     @Before
     public void setUp() {
@@ -47,7 +47,7 @@ public class BurgerGetReceiptParameterizedTest {
     }
 
     @Test
-    public void getReceiptTest() {
+    public void getReceiptAssertTest() {
 
         Mockito.when(bunMock.getName()).thenReturn(bunName);
         Mockito.when(bunMock.getPrice()).thenReturn(100f);
@@ -65,6 +65,23 @@ public class BurgerGetReceiptParameterizedTest {
         Assert.assertTrue(receipt.contains(ingredientName));
         Assert.assertTrue(receipt.contains(ingredientType.toString().toLowerCase()));
         Assert.assertTrue(receipt.contains("Price:"));
+
+    }
+
+    @Test
+    public void getReceiptVerifyTest() {
+
+        Mockito.when(bunMock.getName()).thenReturn(bunName);
+        Mockito.when(bunMock.getPrice()).thenReturn(100f);
+
+        Mockito.when(ingredientMock.getName()).thenReturn(ingredientName);
+        Mockito.when(ingredientMock.getPrice()).thenReturn(100f);
+        Mockito.when(ingredientMock.getType()).thenReturn(ingredientType);
+
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
+
+        burger.getReceipt();
 
         Mockito.verify(bunMock, Mockito.times(2)).getName();
         Mockito.verify(bunMock).getPrice();

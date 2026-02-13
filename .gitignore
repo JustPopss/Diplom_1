@@ -33,8 +33,10 @@ hs_err_pid*
 *.iws
 
 ### Maven ###
+target/*
 !target/site/
-target/
+!target/site/jacoco/
+!target/site/jacoco/**
 
 ### System ###
 .DS_Store
