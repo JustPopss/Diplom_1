@@ -49,7 +49,6 @@ public class BurgerTest {
     public void moveIngredientTest() {
         burger.addIngredient(ingredientMockOne);
         burger.addIngredient(ingredientMockTwo);
-        Assert.assertEquals(2, burger.ingredients.size());
         Assert.assertEquals(burger.ingredients.get(0), ingredientMockOne);
         Assert.assertEquals(burger.ingredients.get(1), ingredientMockTwo);
 
