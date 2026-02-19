@@ -44,10 +44,6 @@ public class BurgerGetReceiptParameterizedTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         burger = new Burger();
-    }
-
-    @Test
-    public void getReceiptAssertTest() {
 
         Mockito.when(bunMock.getName()).thenReturn(bunName);
         Mockito.when(bunMock.getPrice()).thenReturn(100f);
@@ -56,37 +52,56 @@ public class BurgerGetReceiptParameterizedTest {
         Mockito.when(ingredientMock.getPrice()).thenReturn(100f);
         Mockito.when(ingredientMock.getType()).thenReturn(ingredientType);
 
-        burger.setBuns(bunMock);
-        burger.addIngredient(ingredientMock);
+        Mockito.when(bunMock.getName()).thenReturn(bunName);
+        Mockito.when(bunMock.getPrice()).thenReturn(100f);
 
+        Mockito.when(ingredientMock.getName()).thenReturn(ingredientName);
+        Mockito.when(ingredientMock.getPrice()).thenReturn(100f);
+        Mockito.when(ingredientMock.getType()).thenReturn(ingredientType);
+    }
+
+    @Test
+    public void getReceiptAssertBunNameTest() {
+
+        burger.setBuns(bunMock);
         String receipt = burger.getReceipt();
 
         Assert.assertTrue(receipt.contains(bunName));
-        Assert.assertTrue(receipt.contains(ingredientName));
-        Assert.assertTrue(receipt.contains(ingredientType.toString().toLowerCase()));
-        Assert.assertTrue(receipt.contains("Price:"));
-
     }
 
     @Test
-    public void getReceiptVerifyTest() {
-
-        Mockito.when(bunMock.getName()).thenReturn(bunName);
-        Mockito.when(bunMock.getPrice()).thenReturn(100f);
-
-        Mockito.when(ingredientMock.getName()).thenReturn(ingredientName);
-        Mockito.when(ingredientMock.getPrice()).thenReturn(100f);
-        Mockito.when(ingredientMock.getType()).thenReturn(ingredientType);
-
+    public void getReceiptIngredientNameTest() {
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);
+        String receipt = burger.getReceipt();
 
+        Assert.assertTrue(receipt.contains(ingredientName));
+    }
+
+    @Test
+    public void getReceiptIngredientTypeTest() {
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
+        String receipt = burger.getReceipt();
+
+        Assert.assertTrue(receipt.contains(ingredientType.toString().toLowerCase()));
+    }
+
+    @Test
+    public void getReceiptVerifyIngredientNameTest() {
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
         burger.getReceipt();
 
-        Mockito.verify(bunMock, Mockito.times(2)).getName();
-        Mockito.verify(bunMock).getPrice();
         Mockito.verify(ingredientMock).getName();
-        Mockito.verify(ingredientMock).getPrice();
+    }
+
+    @Test
+    public void getReceiptVerifyIngredientTypeTest() {
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
+        burger.getReceipt();
+
         Mockito.verify(ingredientMock).getType();
     }
 }

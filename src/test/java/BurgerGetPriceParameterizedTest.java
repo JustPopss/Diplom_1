@@ -45,14 +45,13 @@ public class BurgerGetPriceParameterizedTest {
     public void setUp() {
         MockitoAnnotations.openMocks(this);
         burger = new Burger();
+
+        Mockito.when(ingredientMock.getPrice()).thenReturn(ingrPrice);
+        Mockito.when(bunMock.getPrice()).thenReturn(bunPrice);
     }
 
     @Test
     public void getPriceAssertTest() {
-
-        Mockito.when(ingredientMock.getPrice()).thenReturn(ingrPrice);
-        Mockito.when(bunMock.getPrice()).thenReturn(bunPrice);
-
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);
 
@@ -62,16 +61,21 @@ public class BurgerGetPriceParameterizedTest {
     }
 
     @Test
-    public void getPriceVerifyTest() {
-
-        Mockito.when(ingredientMock.getPrice()).thenReturn(ingrPrice);
-        Mockito.when(bunMock.getPrice()).thenReturn(bunPrice);
-
+    public void getPriceBunVerifyTest() {
         burger.setBuns(bunMock);
         burger.addIngredient(ingredientMock);
         burger.getPrice();
 
         Mockito.verify(bunMock).getPrice();
+    }
+
+    @Test
+    public void getPriceIngredientVerifyTest() {
+        burger.setBuns(bunMock);
+        burger.addIngredient(ingredientMock);
+        burger.getPrice();
+
         Mockito.verify(ingredientMock).getPrice();
     }
+
 }
