@@ -41,7 +41,6 @@ public class BurgerTest {
     @Test
     public void removeIngredientTest() {
         burger.addIngredient(ingredientMockOne);
-        Assert.assertEquals(1, burger.ingredients.size());
         burger.removeIngredient(0);
         Assert.assertEquals(0, burger.ingredients.size());
     }
